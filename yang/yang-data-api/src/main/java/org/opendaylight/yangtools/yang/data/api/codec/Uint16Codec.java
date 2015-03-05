@@ -7,7 +7,6 @@
  */
 package org.opendaylight.yangtools.yang.data.api.codec;
 
-import org.opendaylight.yangtools.concepts.Codec;
 
 /**
  * FIXME: In Helium release this codec should be changed to
@@ -17,7 +16,7 @@ import org.opendaylight.yangtools.concepts.Codec;
  *
  * @param <T>
  */
-public interface Uint16Codec<T> extends Codec<T,Integer> {
+public interface Uint16Codec<T> extends ContextAgnosticCodec<T,Integer> {
     @Override
     T serialize(Integer data);
 

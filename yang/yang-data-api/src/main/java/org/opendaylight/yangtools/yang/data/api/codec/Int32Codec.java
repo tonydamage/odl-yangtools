@@ -7,9 +7,8 @@
  */
 package org.opendaylight.yangtools.yang.data.api.codec;
 
-import org.opendaylight.yangtools.concepts.Codec;
 
-public interface Int32Codec<T> extends Codec<T,Integer> {
+public interface Int32Codec<T> extends ContextAgnosticCodec<T,Integer> {
     @Override
     T serialize(Integer data);
 

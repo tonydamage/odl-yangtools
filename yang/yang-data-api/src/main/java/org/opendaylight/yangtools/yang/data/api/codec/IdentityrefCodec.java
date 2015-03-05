@@ -7,10 +7,9 @@
  */
 package org.opendaylight.yangtools.yang.data.api.codec;
 
-import org.opendaylight.yangtools.concepts.Codec;
 import org.opendaylight.yangtools.yang.common.QName;
 
-public interface IdentityrefCodec<T>  extends Codec<T,QName> {
+public interface IdentityrefCodec<T>  extends ContextSensitiveCodec<T,QName> {
     @Override
     T serialize(QName data);
 

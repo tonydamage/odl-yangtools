@@ -7,9 +7,9 @@
  */
 package org.opendaylight.yangtools.yang.data.api.codec;
 
-import org.opendaylight.yangtools.concepts.Codec;
 
-public interface UnionCodec<T> extends Codec<T,Object> {
+public interface UnionCodec<T> extends ContextSensitiveCodec<T,Object> {
+
     @Override
     T serialize(Object data);
 

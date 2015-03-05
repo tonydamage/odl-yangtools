@@ -10,6 +10,7 @@ package org.opendaylight.yangtools.yang.data.api.codec;
 import org.opendaylight.yangtools.concepts.Codec;
 import org.opendaylight.yangtools.yang.data.api.Node;
 
+@Deprecated
 public interface DataNodeCodec<I> extends Codec<I, Node<?>> {
     @Override
     Node<?> deserialize(I input);

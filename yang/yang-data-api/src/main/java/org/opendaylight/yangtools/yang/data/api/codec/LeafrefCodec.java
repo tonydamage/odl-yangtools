@@ -7,9 +7,8 @@
  */
 package org.opendaylight.yangtools.yang.data.api.codec;
 
-import org.opendaylight.yangtools.concepts.Codec;
 
-public interface LeafrefCodec<T> extends Codec<T,Object> {
+public interface LeafrefCodec<T> extends ContextSensitiveCodec<T,Object> {
     @Override
     T serialize(Object data);
 
