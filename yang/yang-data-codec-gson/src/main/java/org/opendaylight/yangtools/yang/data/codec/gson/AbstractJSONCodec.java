@@ -38,6 +38,7 @@ abstract class AbstractJSONCodec<T> implements JSONCodec<T> {
      * @param codec underlying codec
      * @return A JSONCodec instance
      */
+    @SuppressWarnings("unchecked")
     public static JSONCodec<?> create(final Codec<String, ?> codec) {
         if (codec instanceof BooleanCodec) {
             return new BooleanJSONCodec((BooleanCodec<String>) codec);

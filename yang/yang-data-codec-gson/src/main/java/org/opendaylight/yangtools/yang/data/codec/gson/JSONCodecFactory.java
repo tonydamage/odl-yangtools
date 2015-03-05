@@ -14,7 +14,7 @@ import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
-import org.opendaylight.yangtools.yang.data.impl.codec.TypeDefinitionAwareCodec;
+import org.opendaylight.yangtools.yang.data.util.LeafSimpleValueStringCodec;
 import org.opendaylight.yangtools.yang.model.api.SchemaContext;
 import org.opendaylight.yangtools.yang.model.api.TypeDefinition;
 import org.opendaylight.yangtools.yang.model.api.type.LeafrefTypeDefinition;
@@ -79,7 +79,7 @@ public final class JSONCodecFactory {
                 return LEAFREF_DEFAULT_CODEC;
             }
 
-            final TypeDefinitionAwareCodec<Object, ? extends TypeDefinition<?>> codec = TypeDefinitionAwareCodec.from(type);
+            final LeafSimpleValueStringCodec<?,?> codec = LeafSimpleValueStringCodec.from(type);
             if (codec == null) {
                 LOG.debug("Codec for type \"{}\" is not implemented yet.", type.getQName().getLocalName());
                 return NULL_CODEC;

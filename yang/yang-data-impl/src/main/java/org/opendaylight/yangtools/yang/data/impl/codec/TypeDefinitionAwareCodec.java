@@ -28,7 +28,6 @@ import com.google.common.io.BaseEncoding;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Set;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.xml.bind.DatatypeConverter;
 import org.opendaylight.yangtools.yang.data.api.codec.BinaryCodec;
@@ -81,28 +80,22 @@ public abstract class TypeDefinitionAwareCodec<J, T extends TypeDefinition<T>> i
             return 10;
         }
 
-        final Matcher intMatcher = intPattern.matcher(integer);
-        if (intMatcher.matches()) {
+        if (intPattern.matcher(integer).matches()) {
             return 10;
-        } else {
-            final Matcher hexMatcher = hexPattern.matcher(integer);
-            if (hexMatcher.matches()) {
-                return 16;
-            } else {
-                final Matcher octMatcher = octalPattern.matcher(integer);
-                if (octMatcher.matches()) {
-                    return 8;
-                } else {
-                    String formatedMessage = String.format("Incorrect lexical representation of integer value: %s."
-                            + "%nAn integer value can be defined as: "
-                            + "%n  - a decimal number,"
-                            + "%n  - a hexadecimal number (prefix 0x),"
-                            + "%n  - an octal number (prefix 0)."
-                            + "%nSigned values are allowed. Spaces between digits are NOT allowed.", integer);
-                    throw new NumberFormatException(formatedMessage);
-                }
-            }
         }
+        if (hexPattern.matcher(integer).matches()) {
+                return 16;
+        }
+        if (octalPattern.matcher(integer).matches()) {
+            return 8;
+        }
+        String formatedMessage = String.format("Incorrect lexical representation of integer value: %s."
+                + "%nAn integer value can be defined as: "
+                + "%n  - a decimal number,"
+                + "%n  - a hexadecimal number (prefix 0x),"
+                + "%n  - an octal number (prefix 0)."
+                + "%nSigned values are allowed. Spaces between digits are NOT allowed.", integer);
+        throw new NumberFormatException(formatedMessage);
     }
 
     private static String normalizeHexadecimal(final String hexInt) {
@@ -603,13 +596,8 @@ public abstract class TypeDefinitionAwareCodec<J, T extends TypeDefinition<T>> i
                         // invalid - try the next union type.
                     }
                 }
-
-                if( !valid ) {
-                    throw new IllegalArgumentException(
-                                        "Invalid value \"" + stringRepresentation + "\" for union type." );
-                }
+                Preconditions.checkArgument(valid,"Invalid value '%s' for %s type",getTypeDefinition().get().getQName());
             }
-
             return stringRepresentation;
         }
     };
